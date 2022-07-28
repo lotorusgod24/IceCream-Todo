@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "922402665647",
+    "project_id": "mypetfirebase",
+    "storage_bucket": "mypetfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922402665647:android:a6a980c989df2eb771905a",
+        "android_client_info": {
+          "package_name": "com.example.flutter_firebase_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "922402665647-r1v58e6o9660e2ucng5upc2ph61jolo5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXvumrCSdU3eoygXO8si7n_EcvMSA3XcE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "922402665647-r1v58e6o9660e2ucng5upc2ph61jolo5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,44 +1,41 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_firebase_app/settings/color.dart';
 import 'package:flutter_firebase_app/main.dart';
 
-class LoginWidget extends StatefulWidget {
-  final VoidCallback toogleRegAuthPage;
-  LoginWidget({Key? key, required this.toogleRegAuthPage}) : super(key: key);
+import '../settings/color.dart';
+
+class SignUpPage extends StatefulWidget {
+  final Function() onClickedSignIn;
+  SignUpPage({Key? key, required this.onClickedSignIn}) : super(key: key);
 
   @override
-  State<LoginWidget> createState() => _LoginWidgetState();
+  State<SignUpPage> createState() => SignUpPageState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
+class SignUpPageState extends State<SignUpPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   void dispose() {
     super.dispose();
-
-    _passwordController.dispose();
     _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
   }
 
-  Future sigIn() async {
+  Future signUp() async {
     showDialog(
-      barrierDismissible: false,
       context: context,
-      builder: (context) => Center(
-        child: CircularProgressIndicator(
-          color: colorIcon,
-        ),
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
       ),
     );
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
@@ -64,12 +61,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                 color: colorIcon,
                 size: 100,
               ),
-              SizedBox(height: 80),
+              const SizedBox(height: 80),
               Text(
                 'Hello there, Welcome in my IceCream Todo! ',
                 style: TextStyle(color: activeText),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextField(
@@ -108,33 +105,52 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
+              TextField(
+                cursorColor: activeText,
+                obscureText: true,
+                controller: _confirmPasswordController,
+                textInputAction: TextInputAction.done,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: activeText),
+                  ),
+                  hintText: 'Confirm Password',
+                  filled: true,
+                  fillColor: textFieldBackgroudColor,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
               GestureDetector(
-                onTap: sigIn,
+                onTap: signUp,
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: colorIcon,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Center(
                     child: Text(
-                      'Sign in',
+                      'Sign Up',
                       style: TextStyle(color: activeText),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               RichText(
                 text: TextSpan(
-                  text: 'Can\'t Sign In?',
+                  text: 'Already have account?',
                   style: TextStyle(color: activeText, fontSize: 16),
                   children: [
                     TextSpan(
                       recognizer: TapGestureRecognizer()
-                        ..onTap = widget.toogleRegAuthPage,
-                      text: ' Create account!',
+                        ..onTap = widget.onClickedSignIn,
+                      text: ' Sign In!',
                       style: TextStyle(
                           color: textFieldBackgroudColor, fontSize: 16),
                     ),

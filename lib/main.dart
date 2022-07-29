@@ -3,7 +3,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_app/pages/main_page.dart';
-import 'package:flutter_firebase_app/widgets/login_wiedgets.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

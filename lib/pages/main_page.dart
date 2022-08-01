@@ -4,7 +4,7 @@ import 'package:flutter_firebase_app/pages/auth_page.dart';
 import 'package:flutter_firebase_app/settings/color.dart';
 import 'package:flutter_firebase_app/widgets/login_wiedgets.dart';
 
-import 'HomePage.dart';
+import 'home_page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);

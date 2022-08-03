@@ -1,6 +1,12 @@
+// ignore_for_file: unnecessary_null_comparison
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_app/models/model_task.dart';
 import 'package:intl/intl.dart';
 
+import '../models/user_model.dart';
 import '../settings/color.dart';
 
 class AlertWidget extends StatefulWidget {
@@ -15,7 +21,11 @@ class AlertWidget extends StatefulWidget {
 class _AlertWidgetState extends State<AlertWidget> {
   final TextEditingController _taskName = TextEditingController();
   final TextEditingController _taskDescrition = TextEditingController();
+
   DateTime date = DateTime.now();
+
+  final user = FirebaseAuth.instance.currentUser!.email;
+  final userId = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   void dispose() {
@@ -87,26 +97,49 @@ class _AlertWidgetState extends State<AlertWidget> {
                         date = newDate!;
                       });
               },
-              child: const Text(
-                'Select final date your task',
-                style: TextStyle(color: activeText),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              decoration: BoxDecoration(
-                color: colorIcon,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              padding: const EdgeInsets.all(5.0),
               child: Text(
-                'Selected date: ${DateFormat('dd/MM/yyyy').format(date)}',
+                date == DateTime.now()
+                    ? 'Select final date your task'
+                    : 'Selected date: ${DateFormat('dd.MM.yyyy').format(date)}',
                 style: const TextStyle(color: activeText),
               ),
             ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(colorIcon),
+              ),
+              onPressed: () {
+                final task = Task(
+                  taskName: _taskName.text,
+                  date: date,
+                  description: _taskDescrition.text,
+                );
+                createTask(task, user);
+                Navigator.pop(context);
+              },
+              child: const Text(
+                'Add task',
+                style: TextStyle(color: activeText),
+              ),
+            )
           ],
         ),
       ),
     );
+  }
+
+  Future createTask(Task task, user) async {
+    //final String docId = task.taskId;
+    final docTask = FirebaseFirestore.instance
+        .collection(user)
+        .doc(userId)
+        .collection('tasks')
+        .doc(task.taskId);
+
+    task.taskId = docTask.id;
+
+    final json = task.toJson();
+    await docTask.set(json);
   }
 }

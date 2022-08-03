@@ -9,7 +9,7 @@ import '../utils/utils_registration.dart';
 
 class SignUpPage extends StatefulWidget {
   final Function() onClickedSignIn;
-  SignUpPage({Key? key, required this.onClickedSignIn}) : super(key: key);
+  const SignUpPage({Key? key, required this.onClickedSignIn}) : super(key: key);
 
   @override
   State<SignUpPage> createState() => SignUpPageState();
@@ -22,11 +22,12 @@ class SignUpPageState extends State<SignUpPage> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
+  @override
   void dispose() {
-    super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    super.dispose();
   }
 
   Future signUp() async {
@@ -35,7 +36,7 @@ class SignUpPageState extends State<SignUpPage> {
 
     showDialog(
       context: context,
-      builder: (context) => Center(
+      builder: (context) => const Center(
         child: CircularProgressIndicator(
           color: colorIcon,
         ),
@@ -68,13 +69,13 @@ class SignUpPageState extends State<SignUpPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   Icons.icecream,
                   color: colorIcon,
                   size: 100,
                 ),
                 const SizedBox(height: 80),
-                Text(
+                const Text(
                   'Hello there, Welcome in my IceCream Todo! ',
                   style: TextStyle(color: activeText),
                 ),
@@ -86,12 +87,12 @@ class SignUpPageState extends State<SignUpPage> {
                   controller: _emailController,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
-                    errorStyle: TextStyle(color: textFieldBackgroudColor),
+                    errorStyle: const TextStyle(color: textFieldBackgroudColor),
                     hintText: 'Email',
                     filled: true,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: activeText),
+                      borderSide: const BorderSide(color: activeText),
                     ),
                     fillColor: textFieldBackgroudColor,
                     border: OutlineInputBorder(
@@ -111,10 +112,10 @@ class SignUpPageState extends State<SignUpPage> {
                   controller: _passwordController,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
-                    errorStyle: TextStyle(color: textFieldBackgroudColor),
+                    errorStyle: const TextStyle(color: textFieldBackgroudColor),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: activeText),
+                      borderSide: const BorderSide(color: activeText),
                     ),
                     hintText: 'Password',
                     filled: true,
@@ -135,10 +136,10 @@ class SignUpPageState extends State<SignUpPage> {
                   controller: _confirmPasswordController,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
-                    errorStyle: TextStyle(color: textFieldBackgroudColor),
+                    errorStyle: const TextStyle(color: textFieldBackgroudColor),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: activeText),
+                      borderSide: const BorderSide(color: activeText),
                     ),
                     hintText: 'Confirm Password',
                     filled: true,
@@ -162,7 +163,7 @@ class SignUpPageState extends State<SignUpPage> {
                       color: colorIcon,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         'Sign Up',
                         style: TextStyle(color: activeText),
@@ -174,13 +175,13 @@ class SignUpPageState extends State<SignUpPage> {
                 RichText(
                   text: TextSpan(
                     text: 'Already have account?',
-                    style: TextStyle(color: activeText, fontSize: 16),
+                    style: const TextStyle(color: activeText, fontSize: 16),
                     children: [
                       TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = widget.onClickedSignIn,
                         text: ' Sign In!',
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: textFieldBackgroudColor, fontSize: 16),
                       ),
                     ],

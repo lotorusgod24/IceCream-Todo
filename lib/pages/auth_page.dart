@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_app/widgets/login_wiedgets.dart';
 
-import '../widgets/signUp_page.dart';
+import '../widgets/sign_up_page.dart';
 
 class AuthPage extends StatefulWidget {
-  AuthPage({Key? key}) : super(key: key);
+  const AuthPage({Key? key}) : super(key: key);
 
   @override
   State<AuthPage> createState() => _AuthPageState();

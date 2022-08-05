@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_app/settings/color.dart';
-import 'package:intl/intl.dart';
 
 import '../models/model_task.dart';
 import '../widgets/dilaog_for_data.dart';
@@ -87,7 +86,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         trailing: IconButton(
                           onPressed: () {
-                            taskDelete;
+                            taskDelete
+                                .doc(snapshot.data!.docs[index].id)
+                                .delete();
                           },
                           icon: const Icon(
                             Icons.delete,
@@ -101,8 +102,6 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
-
-      //Form For data
       floatingActionButton: FloatingActionButton(
         backgroundColor: colorIcon,
         onPressed: _showFormUsersInfo,
@@ -121,9 +120,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<void> deleteTask(Task task) async {
+//problems
+  Future deleteTask() {
     return taskDelete
-        .doc(task.taskId)
+        .doc()
         .delete()
         .then((value) => print('Task has been delete'))
         .catchError(

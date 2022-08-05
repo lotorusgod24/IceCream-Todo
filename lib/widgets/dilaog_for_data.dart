@@ -5,8 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_app/models/model_task.dart';
 import 'package:intl/intl.dart';
-
-import '../models/user_model.dart';
 import '../settings/color.dart';
 
 class AlertWidget extends StatefulWidget {
@@ -115,7 +113,10 @@ class _AlertWidgetState extends State<AlertWidget> {
                   date: date,
                   description: _taskDescrition.text,
                 );
-                createTask(task, user);
+                createTask(
+                  task,
+                  user,
+                );
                 Navigator.pop(context);
               },
               child: const Text(
@@ -130,16 +131,11 @@ class _AlertWidgetState extends State<AlertWidget> {
   }
 
   Future createTask(Task task, user) async {
-    //final String docId = task.taskId;
     final docTask = FirebaseFirestore.instance
         .collection(user)
         .doc(userId)
-        .collection('tasks')
-        .doc(task.taskId);
-
-    task.taskId = docTask.id;
-
+        .collection('tasks');
     final json = task.toJson();
-    await docTask.set(json);
+    await docTask.add(json);
   }
 }

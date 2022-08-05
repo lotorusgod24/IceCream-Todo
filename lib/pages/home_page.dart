@@ -119,15 +119,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-//problems
-  Future deleteTask() {
-    return taskDelete
-        .doc()
-        .delete()
-        .then((value) => print('Task has been delete'))
-        .catchError(
-          (error) => print('$error'),
-        );
-  }
 }
